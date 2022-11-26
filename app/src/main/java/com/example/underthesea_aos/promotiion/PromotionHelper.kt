@@ -1,12 +1,11 @@
-package com.example.underthesea_aos.map
+package com.example.underthesea_aos.promotiion
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-
-class Publicize(
+class PromotionHelper (
     context: Context?,
     name: String?,
     factory: SQLiteDatabase.CursorFactory?,
