@@ -36,6 +36,7 @@ class AddActivity : AppCompatActivity() {
         showDate()
         initRecycler()
 
+        //저장하기 버튼
         save_button.setOnClickListener{
             val memo = contents_memo.text.toString()
             MyApplication.preferences.setString("content",memo)
