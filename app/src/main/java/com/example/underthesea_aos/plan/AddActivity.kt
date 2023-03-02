@@ -1,11 +1,14 @@
 package com.example.underthesea_aos.plan
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.underthesea_aos.R
 import kotlinx.android.synthetic.main.activity_plan_add.*
 import kotlinx.android.synthetic.main.activity_plan_recyclerview.*
@@ -16,6 +19,7 @@ import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.prefs.Preferences
 
 /*
      계획 상세 페이지
@@ -31,9 +35,30 @@ class AddActivity : AppCompatActivity() {
         setContentView(R.layout.activity_plan_add)
         showDate()
         initRecycler()
-        back()
-        cancel()
+
+        save_button.setOnClickListener{
+            val memo = contents_memo.text.toString()
+            MyApplication.preferences.setString("content",memo)
+
+            val intent3 = Intent(this, MainActivity::class.java)
+            startActivity(intent3)
+            finish()
+            Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
+        }
+
+        //뒤로 가기 버튼
+        back_btn.setOnClickListener{
+            val intent1 = Intent(this, MainActivity::class.java)
+            startActivity(intent1)
+        }
+
+        //cancel 버튼
+        cancel_button.setOnClickListener{
+            val intent2 = Intent(this,MainActivity::class.java)
+            startActivity(intent2)
+        }
     }
+
 
     private fun showDate(){
         val date = Date()
@@ -57,23 +82,4 @@ class AddActivity : AppCompatActivity() {
         planAdapter.dataSet = dataSet
         planAdapter.notifyDataSetChanged()
     }
-
-    //preview 페이지 돌아가기
-    private fun back(){
-        binding.backBtn.setOnClickListener{
-            val intent1 = Intent(this, MainActivity::class.java)
-            startActivity(intent1)
-        }
-    }
-
-    //cancle
-    private fun cancel(){
-        binding.cancelButton.setOnClickListener{
-           val back = Intent(this, MainActivity::class.java)
-            startActivity(back)
-        }
-    }
-
-    //save
-
 }
