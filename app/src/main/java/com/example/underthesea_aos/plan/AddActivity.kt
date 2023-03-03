@@ -17,6 +17,7 @@ import com.example.underthesea_aos.databinding.ActivityPlanAddBinding
 import com.example.underthesea_aos.databinding.ActivityPlanPreviewRecyclerviewBinding
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
+import kotlinx.android.synthetic.main.activity_plan_preview_recyclerview.*
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.prefs.Preferences
@@ -29,6 +30,8 @@ class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
     lateinit var binding : ActivityPlanAddBinding
+    private val memo = contents_memo.text.toString()
+    private val title = title_plan.text.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +41,9 @@ class AddActivity : AppCompatActivity() {
 
         //저장하기 버튼
         save_button.setOnClickListener{
-            val memo = contents_memo.text.toString()
+
             MyApplication.preferences.setString("content",memo)
+            MyApplication.preferences.setString("title",title)
 
             val intent3 = Intent(this, MainActivity::class.java)
             startActivity(intent3)
@@ -58,6 +62,8 @@ class AddActivity : AppCompatActivity() {
             val intent2 = Intent(this,MainActivity::class.java)
             startActivity(intent2)
         }
+
+        titleRecycler()
     }
 
 
@@ -82,5 +88,10 @@ class AddActivity : AppCompatActivity() {
 
         planAdapter.dataSet = dataSet
         planAdapter.notifyDataSetChanged()
+    }
+
+    private fun titleRecycler(){
+        val text = MyApplication.preferences.getString("title",title)
+        add_editView.setText(text)
     }
 }
