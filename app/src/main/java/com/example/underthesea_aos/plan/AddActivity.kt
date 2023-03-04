@@ -30,8 +30,6 @@ class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
     lateinit var binding : ActivityPlanAddBinding
-    private val memo = contents_memo.text.toString()
-    private val title = title_plan.text.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +37,10 @@ class AddActivity : AppCompatActivity() {
         showDate()
         initRecycler()
 
-        //저장하기 버튼
+        //save 저장하기 버튼
         save_button.setOnClickListener{
+            val memo = contents_memo.text.toString()
+            val title = title_plan.text.toString()
 
             MyApplication.preferences.setString("content",memo)
             MyApplication.preferences.setString("title",title)
@@ -62,8 +62,6 @@ class AddActivity : AppCompatActivity() {
             val intent2 = Intent(this,MainActivity::class.java)
             startActivity(intent2)
         }
-
-        titleRecycler()
     }
 
 
@@ -88,10 +86,5 @@ class AddActivity : AppCompatActivity() {
 
         planAdapter.dataSet = dataSet
         planAdapter.notifyDataSetChanged()
-    }
-
-    private fun titleRecycler(){
-        val text = MyApplication.preferences.getString("title",title)
-        add_editView.setText(text)
     }
 }

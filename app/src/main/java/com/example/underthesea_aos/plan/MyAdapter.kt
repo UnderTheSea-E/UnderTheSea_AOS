@@ -1,22 +1,34 @@
 package com.example.underthesea_aos.plan
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.underthesea_aos.R
+import com.example.underthesea_aos.databinding.ActivityPlanMainBinding
 import com.example.underthesea_aos.databinding.ActivityPlanPreviewBinding
+import com.example.underthesea_aos.databinding.ActivityPlanPreviewRecyclerviewBinding
 
-class MyViewHolder(val binding: ActivityPlanPreviewBinding): RecyclerView.ViewHolder(binding.root)
+class MyAdapter(private val context: Context):
+    RecyclerView.Adapter<MyAdapter.ViewHolder>(){
 
-class MyAdapter(val datas: MutableList<String>?): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-    override fun getItemCount(): Int {
-        return datas?.size ?:0
+    var datas = mutableListOf<PlanPreviewData>()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder{
+        val layoutview = LayoutInflater.from(context).inflate(R.layout.activity_plan_preview_recyclerview,parent,false)
+        return ViewHolder(layoutview)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
-            =MyViewHolder(ActivityPlanPreviewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    override fun onBindViewHolder(viewHolder: ViewHolder, positon:Int){
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val binding=(holder as MyViewHolder).binding
-        binding.itemData.text = datas!![position]
+    }
+
+    override fun getItemCount(): Int {
+
+    }
+    inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
+
+
+
     }
 }
