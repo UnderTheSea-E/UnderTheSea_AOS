@@ -10,57 +10,48 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.databinding.ActivityMainBinding
 import com.example.underthesea_aos.databinding.ActivityPlanMainBinding
+import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
+import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import kotlinx.android.synthetic.main.activity_plan_main.*
+import kotlinx.android.synthetic.main.activity_plan_preview_recyclerview.*
+import kotlinx.android.synthetic.main.activity_plan_preview_recyclerview.view.*
+
 /*
   계획 조회 페이지
  */
 
 class MainActivity : AppCompatActivity() {
-
+    lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    lateinit var myAdapter: MyAdapter
+    private val datas = mutableListOf<PlanPreviewData>()
     lateinit var binding: ActivityPlanMainBinding
-    private var datas: MutableList<String>? = null
-    lateinit var adapter: MyAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlanMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initializeViews()
 
+/*    private fun initRecycler(){
+        myAdapter = MyAdapter(this)
 
-        //ActivityResultLauncher 생성
-        val requestLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        )
-        {
-            it.data!!.getStringExtra("result")?.let {
-                datas?.add(it)
-                adapter.notifyDataSetChanged()
-            }
+        main_recyclerView.adapter = myAdapter
+        main_recyclerView.addItemDecoration(VeritcalItemDecorator(20))
+        main_recyclerView.addItemDecoration(HorizontalItemDecorator(10))
+
+        data.apply {
+            add(PlanPreviewData(title = MyApplication.preferences.getString("title","")))
         }
 
-        binding.addBtn.setOnClickListener {
-            val intent = Intent(this, AddActivity::class.java)
-            requestLauncher.launch(intent)
+        myAdapter.data = data
+        myAdapter.notifyDataSetChanged()
+    }*/
+    }
 
-            datas = savedInstanceState?.let {
-                it.getStringArrayList("datas")?.toMutableList()
-            } ?: let {
-                mutableListOf<String>()
-            }
-
-            val layoutManager = LinearLayoutManager(this)
-            binding.mainRecyclerView.layoutManager = layoutManager
-            adapter = MyAdapter(datas)
-            binding.mainRecyclerView.adapter = adapter
-            binding.mainRecyclerView.addItemDecoration(
-                DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-            )
-        }
-
-        fun onSaveInstanceState(outState: Bundle) {
-            super.onSaveInstanceState(outState)
-            outState.putStringArrayList("datas", ArrayList(datas))
-        }
+    private fun initializeViews(){
+        binding.mainRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.mainRecyclerView.adapter = MyAdapter(datas)
     }
 }
