@@ -1,6 +1,7 @@
 package com.example.underthesea_aos.plan
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,26 +33,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityPlanMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initializeViews()
-
-/*    private fun initRecycler(){
-        myAdapter = MyAdapter(this)
-
-        main_recyclerView.adapter = myAdapter
-        main_recyclerView.addItemDecoration(VeritcalItemDecorator(20))
-        main_recyclerView.addItemDecoration(HorizontalItemDecorator(10))
-
-        data.apply {
-            add(PlanPreviewData(title = MyApplication.preferences.getString("title","")))
+        add_btn.setOnClickListener {
+            val intent = Intent(this, AddActivity::class.java)
+            startActivity(intent)
         }
 
-        myAdapter.data = data
-        myAdapter.notifyDataSetChanged()
-    }*/
-    }
+        //initializeViews()
 
-    private fun initializeViews(){
-        binding.mainRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.mainRecyclerView.adapter = MyAdapter(datas)
+
+
+        fun initializeViews() {
+            binding.mainRecyclerView.layoutManager = LinearLayoutManager(this)
+            binding.mainRecyclerView.adapter = MyAdapter(datas)
+        }
     }
 }
