@@ -30,8 +30,8 @@
                 android:layout_marginStart="75dp"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/date"
             android:layout_marginTop="7dp"
-            android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="날짜 들어갈 위치"

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -13,11 +14,20 @@ import com.example.underthesea_aos.R
 import kotlinx.android.synthetic.main.activity_plan_add.*
 import kotlinx.android.synthetic.main.activity_plan_recyclerview.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.databinding.ActivityPlanAddBinding
 import com.example.underthesea_aos.databinding.ActivityPlanPreviewRecyclerviewBinding
+import com.example.underthesea_aos.record.PostRecordRes
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
+import com.example.underthesea_aos.retrofit.RetrofitBuilder
+import kotlinx.android.synthetic.main.activity_plan_add.date
+import kotlinx.android.synthetic.main.activity_plan_main.*
 import kotlinx.android.synthetic.main.activity_plan_preview_recyclerview.*
+import kotlinx.android.synthetic.main.activity_record.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.prefs.Preferences
@@ -30,20 +40,25 @@ class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
     lateinit var binding : ActivityPlanAddBinding
-
+    var strDate = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_add)
-        showDate()
+        //showDate()
         initRecycler()
 
-        //save 저장하기 버튼
-        save_button.setOnClickListener{
-            val memo = contents_memo.text.toString()
-            val title = title_plan.text.toString()
+        if (intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
+            // date라는 id의 textview의 문구를 date라는 키값을 가진 intent의 정보로 변경
+            strDate = intent.getStringExtra("date").toString()
+            Log.d("date", intent.getStringExtra("date").toString())
+            date.text = strDate
+            intent.putExtra("date", strDate)
+        }
 
-            MyApplication.preferences.setString("content",memo)
-            MyApplication.preferences.setString("title",title)
+        //save 저장하기 버튼
+        val planInfo = Plan()
+        save_button.setOnClickListener{
+            PostPlan(planInfo)
 
             val intent3 = Intent(this, MainActivity::class.java)
             startActivity(intent3)
@@ -64,11 +79,31 @@ class AddActivity : AppCompatActivity() {
         }
     }
 
+    private fun PostPlan(plan: Plan){
+        plan.title = title_plan.text.toString()
+        plan.content = contents_memo.text.toString()
+        plan.date = strDate
+        plan.friend = 0
 
-    private fun showDate(){
-        val date = Date()
-        val formatType = SimpleDateFormat("yyyy-MM-dd")
-        dateTextView.text = formatType.format(date)
+        val call = RetrofitBuilder().retrofit().postPlanResponse(plan)
+        //비동기 방식의 통신
+        call.enqueue(object : Callback<BaseResponse<Plan>> {
+            //통신 성공
+            override fun onResponse(call: Call<BaseResponse<Plan>>, response: Response<BaseResponse<Plan>>) {
+                //응답 성공
+                if(response.isSuccessful()){
+                    Log.d("Response: ", response.body().toString())
+                }
+                //응답 실패
+                else{
+                    Log.d("Response: ", "failure")
+                }
+            }
+            //통신 실패
+            override fun onFailure(call: Call<BaseResponse<Plan>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
     }
 
     private fun initRecycler(){

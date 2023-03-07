@@ -44,6 +44,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_recyclerView"
             android:layout_width="match_parent"

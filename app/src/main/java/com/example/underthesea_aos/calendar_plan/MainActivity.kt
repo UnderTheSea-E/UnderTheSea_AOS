@@ -2,12 +2,14 @@ package com.example.underthesea_aos.calendar_plan
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
-import com.example.underthesea_aos.record.MainActivity3
+import com.example.underthesea_aos.plan.MainActivity
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import kotlinx.android.synthetic.main.activity_record.*
 import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
@@ -27,8 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         calendar.addDecorator(TodayDecorator(this@MainActivity))
 
-        //날짜에 해당하는 레코드 목록 페이지로 이동할 intent
-        val intent = Intent(this, MainActivity3::class.java)
+        //날짜에 해당하는 플랜 목록 페이지로 이동할 intent
+        val intent = Intent(this, MainActivity::class.java)
 
         calendar.setOnDateChangedListener(object: OnDateSelectedListener {
             override fun onDateSelected(widget: MaterialCalendarView, date: CalendarDay, selected: Boolean) {

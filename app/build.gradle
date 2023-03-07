@@ -92,6 +92,7 @@ dependencies {
     //calendar
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
 
+
     //view pager
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 

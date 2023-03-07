@@ -10,12 +10,12 @@ import com.example.underthesea_aos.R
 import com.example.underthesea_aos.databinding.ActivityPlanMainBinding
 import com.example.underthesea_aos.databinding.ActivityPlanPreviewRecyclerviewBinding
 
-class MyAdapter(private val todos: List<PlanPreviewData>): RecyclerView.Adapter<MyAdapter.ViewHolder>(){
+class MyAdapter(){
 
-    var datas = mutableListOf<PlanPreviewData>()
+/*    var datas = mutableListOf<PlanPreviewData>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder{
-        /*val view = LayoutInflater.from(context).inflate(R.layout.activity_plan_preview_recyclerview,parent,false)
-        return ViewHolder(view)*/
+        *//*val view = LayoutInflater.from(context).inflate(R.layout.activity_plan_preview_recyclerview,parent,false)
+        return ViewHolder(view)*//*
 
         return ViewHolder(
             ActivityPlanPreviewRecyclerviewBinding.inflate(
@@ -37,5 +37,5 @@ class MyAdapter(private val todos: List<PlanPreviewData>): RecyclerView.Adapter<
         fun bind(item: PlanPreviewData){
             txtView.text = item.title
         }
-    }
+    }*/
 }

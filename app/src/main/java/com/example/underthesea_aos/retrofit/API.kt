@@ -42,6 +42,16 @@ public interface API {
         @Query("date") date: String
     ): Call<String>
 
+
+    //body는 보내주는 것 용량 큰 것 데이터 여러개
+    // BODY 변수이름 : 변수타입 -> 클래스로 선언 되어있음
+
+    //post plans
+    @POST("plans")
+    fun postPlanResponse(
+        @Body plan: Plan
+    ):Call<BaseResponse<Plan>>
+
     //get plans
     @GET("plans")
     fun getPlansResponse(
