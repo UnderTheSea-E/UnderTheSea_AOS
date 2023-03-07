@@ -43,8 +43,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_record)
 
         //back 버튼 클릭 시
-        val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+        val intent1 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
         back.setOnClickListener{ startActivity(intent1) }
+
+        //캘린더로부터 날짜 받아올 인텐트
+        if(intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
+            // date라는 id의 textview의 문구를 date라는 키값을 가진 intent의 정보로 변경
+            val strDate = intent.getStringExtra("date").toString()
+            Log.d("date", intent.getStringExtra("date").toString())
+            date.text = strDate
+        }
 
         spinner = findViewById(R.id.spinner)
         var data = listOf("aaa", "bbb", "ccc");
@@ -136,11 +144,11 @@ class MainActivity : AppCompatActivity() {
         record.satisfaction = satisfaction
         record.plan_id = plan
 
-        val call = RetrofitBuilder.retrofit().postRecordsResponse(record)
+        val call = RetrofitBuilder().retrofit().postRecordsResponse(record)
         //비동기 방식의 통신
-        call.enqueue(object : Callback<RecordResponse> {
+        call.enqueue(object : Callback<PostRecordRes> {
             //통신 성공
-            override fun onResponse(call: Call<RecordResponse>, response: Response<RecordResponse>) {
+            override fun onResponse(call: Call<PostRecordRes>, response: Response<PostRecordRes>) {
                 //응답 성공
                 if(response.isSuccessful()){
                     Log.d("Response: ", response.body().toString())
@@ -151,7 +159,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             //통신 실패
-            override fun onFailure(call: Call<RecordResponse>, t: Throwable) {
+            override fun onFailure(call: Call<PostRecordRes>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
         })

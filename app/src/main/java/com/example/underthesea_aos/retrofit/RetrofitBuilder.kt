@@ -1,8 +1,7 @@
 package com.example.underthesea_aos.retrofit
 
-import android.os.Handler
-import android.os.Looper
-import com.example.underthesea_aos.user.MainActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.example.underthesea_aos.kakaoLogIn.GlobalApplication
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -12,10 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 
-object RetrofitBuilder {
+class RetrofitBuilder : AppCompatActivity() {
     //var api: API
-    var jwtToken = " "
-
     fun retrofit(): API {
         val retrofit = Retrofit.Builder()
             .baseUrl("http://10.0.2.2:3000/") //요청 보내는 api 서버 url
@@ -23,31 +20,43 @@ object RetrofitBuilder {
             .client(okHttpClient(AppInterceptor())) // okHttpClient를 Retrofit 빌더에 추가
             .build()
             .create(API::class.java)
-
         return retrofit
     }
 
     fun okHttpClient(interceptor: AppInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(interceptor) // okHttp에 인터셉터 추가
+            .addInterceptor(interceptor)
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
-            }).build()
+            }).build() // okHttp에 인터셉터 추가
     }
 
+    class AppInterceptor() : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+            val newRequest = chain.request().newBuilder()
+                .addHeader("Authorization", GlobalApplication.prefs.token ?: "")
+                .build()
+            chain.proceed(newRequest)
+        }
+    }
+
+    /*
     class AppInterceptor : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain) : Response = with(chain) {
             val mHandler = Handler(Looper.getMainLooper())
             mHandler.postDelayed(Runnable {
-                jwtToken = MainActivity().jwtToken // ViewModel에서 지정한 key로 JWT 토큰을 가져온다.
+                jwtToken = MainActivity().jwtToken //ViewModel에서 지정한 key로 JWT 토큰을 가져온다.
+                Log.d("jwt2", jwtToken)
             }, 0)
             val newRequest = request().newBuilder()
-                .addHeader("Authorization", jwtToken) // 헤더에 authorization라는 key로 JWT 를 넣어준다.
+                .addHeader("Authorization", MainActivity().jwtToken) // 헤더에 authorization라는 key로 JWT 를 넣어준다.
                 .build()
             proceed(newRequest)
         }
     }
+     */
 }
 
 /*

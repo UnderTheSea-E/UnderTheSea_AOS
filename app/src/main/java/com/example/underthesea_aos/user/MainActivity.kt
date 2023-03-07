@@ -3,16 +3,20 @@ package com.example.underthesea_aos.user
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.googleLogin.SecondActivity
+import com.example.underthesea_aos.kakaoLogIn.GlobalApplication
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
+import com.example.underthesea_aos.record.Prefs
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -21,18 +25,24 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.gson.Gson
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.android.synthetic.main.activity_record.*
 import kotlinx.android.synthetic.main.activity_signin.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
-    public var jwtToken = ""
+    var jwtToken = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,18 +65,18 @@ class MainActivity : AppCompatActivity() {
 
         //백엔드와의 통신 성공 or 실패
         fun Login(token: KakaoToken){
-            val call = RetrofitBuilder.retrofit().postKakaoLoginResponse(token)
+            val call = RetrofitBuilder().retrofit().postKakaoLoginResponse(token)
             //비동기 방식의 통신
-            call.enqueue(object : Callback<KakaoResponse> {
+            call.enqueue(object : Callback<BaseResponse<KakaoResponse>> {
                 //통신 성공
-                override fun onResponse(call: Call<KakaoResponse>, response: Response<KakaoResponse>) {
+                override fun onResponse(call: Call<BaseResponse<KakaoResponse>>, response: Response<BaseResponse<KakaoResponse>>) {
                     //응답 성공
                     if(response.isSuccessful()){
-                        //Log.d("Response: ", response.headers().value(0))
-                        //Log.d("Response: ", response.body().toString())
-                        // SharedPreference 에 jwt token 저장
-                        jwtToken = response.headers().value(0).toString()
-                        Log.d("jwt", jwtToken)
+                        //Log.d("Response1: ", Gson().toJson(response.body()))
+                        // jwt token 저장
+                        jwtToken = response.headers().value(0).toString().split(" ")[1]
+                        GlobalApplication.prefs.token = jwtToken
+                        Log.d("jwt", GlobalApplication.prefs.token.toString())
                     }
                     //응답 실패
                     else{
@@ -74,10 +84,16 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 //통신 실패
-                override fun onFailure(call: Call<KakaoResponse>, t: Throwable) {
+                override fun onFailure(call: Call<BaseResponse<KakaoResponse>>, t: Throwable) {
                     Log.d("Connection Failure", t.localizedMessage)
                 }
             })
+            val jsonObject = JSONObject()
+            val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString())
+
+            //캐릭터 선택 페이지 전환활 intent
+            val intent1 = Intent(this, com.example.underthesea_aos.character.MainActivity::class.java)
+            startActivity(intent1)
         }
 
         //accesstoken(, refreshtoken) 발급 과정 성공 or 실패
@@ -119,9 +135,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d(ContentValues.TAG, "token : ${token}")
 
                 Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                //val intent = Intent(this, SecondActivity::class.java)
-                //startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                //finish()
 
                 val kakaoToken = KakaoToken()
                 kakaoToken.accessToken = token.accessToken.toString()
@@ -145,13 +158,11 @@ class MainActivity : AppCompatActivity() {
         
         //google
         auth = FirebaseAuth.getInstance()
-//        Log.d("auth: ", auth.toString())
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-//        Log.d("gso: ", gso.toString())
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
@@ -169,7 +180,6 @@ class MainActivity : AppCompatActivity() {
             result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-//                    Log.d("task: ", task.toString())
             handleResults(task)
         }
     }
@@ -177,7 +187,6 @@ class MainActivity : AppCompatActivity() {
     private fun handleResults(task: Task<GoogleSignInAccount>) {
         if (task.isSuccessful) {
             val account: GoogleSignInAccount? = task.result
-//            Log.d("account: ", account.toString())
             if (account != null) {
                 updateUI(account)
             }
@@ -188,25 +197,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential((account).idToken, null)
-//        Log.d("idToken: ", (account).idToken.toString())
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {//로그인 성공 시
                 val intent: Intent = Intent(this, SecondActivity::class.java)
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
                 startActivity(intent)
-//                Log.d("loginSuccess","login")
             } else {//로그인 실패 시
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
         }
-//        Log.d("email:::", account?.email.toString())
-//        Log.d("name:::", account?.displayName.toString())
-//        Log.d("pic:::", account?.photoUrl.toString())
     }
-
-//    private fun GoogleLoginInfo(task: Task<GoogleSignInAccount>) {
-//        val googleInfo = GoogleInfo()
-//        val account: GoogleSignInAccount? = task.result
-//    }
 }

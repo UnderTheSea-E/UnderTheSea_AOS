@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.example.underthesea_aos.user.KakaoResponse
@@ -38,11 +39,11 @@ class MainActivity : AppCompatActivity() {
 
         //백엔드와의 통신 성공 or 실패
         fun Login(token: KakaoToken){
-            val call = RetrofitBuilder.retrofit().postKakaoLoginResponse(token)
+            val call = RetrofitBuilder().retrofit().postKakaoLoginResponse(token)
             //비동기 방식의 통신
-            call.enqueue(object : Callback<KakaoResponse>{
+            call.enqueue(object : Callback<BaseResponse<KakaoResponse>>{
                 //통신 성공
-                override fun onResponse(call: Call<KakaoResponse>, response: Response<KakaoResponse>) {
+                override fun onResponse(call: Call<BaseResponse<KakaoResponse>>, response: Response<BaseResponse<KakaoResponse>>) {
                     //응답 성공
                     if(response.isSuccessful()){
                         Log.d("Response: ", response.body().toString())
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 //통신 실패
-                override fun onFailure(call: Call<KakaoResponse>, t: Throwable) {
+                override fun onFailure(call: Call<BaseResponse<KakaoResponse>>, t: Throwable) {
                     Log.d("Connection Failure", t.localizedMessage)
                 }
             })

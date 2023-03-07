@@ -1,4 +1,4 @@
-package com.example.underthesea_aos.calendar
+package com.example.underthesea_aos.calendar_plan
 
 import android.content.Context
 import android.graphics.Color

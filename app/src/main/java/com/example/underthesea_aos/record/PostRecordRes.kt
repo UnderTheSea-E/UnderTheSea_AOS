@@ -1,6 +1,6 @@
 package com.example.underthesea_aos.record
 
-class RecordResponse {
+class PostRecordRes {
     var id: Int? = null
         get() { return field }
         set(value) { field = value }

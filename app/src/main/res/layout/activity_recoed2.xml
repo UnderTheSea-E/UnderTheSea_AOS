@@ -8,117 +8,82 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="200dp"
-                android:paddingVertical="4dp"
-                android:text="2200.00.00"
-                android:textAlignment="textStart" />
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
 
             <ImageButton
-                android:id="@+id/smile"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_toRightOf="@id/txt"
+                android:id="@+id/back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:adjustViewBounds="true"
-                android:maxWidth="70dp"
-                android:maxHeight="70dp"
+                android:background="@drawable/undo"
+                android:gravity="left"
+                android:maxWidth="40dp"
+                android:maxHeight="40dp"
+                android:paddingLeft="30dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/smile" />
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="RECORD"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
         </LinearLayout>
 
         <TextView
+            android:id="@+id/daily"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="IMAGE"
-            android:textSize="20sp"
+            android:text="Daily Schedule"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20sp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/user_image"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:maxWidth="200dp"
-                android:maxHeight="200dp" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="CONTENT"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_content"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/border"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="4dp"
-            android:paddingBottom="30dp"
-            android:textAlignment="textStart" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="COMMENT"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|bottom"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txt_comment"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="5dp"
-                android:textAlignment="textStart"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="50dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="20sp"
-                android:layout_toRightOf="@id/txt_comment"
-                android:text="SAVE"
-                android:textSize="10sp" />
-
-        </RelativeLayout>
+            <ImageButton
+                android:id="@+id/btn_add"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/add"
+                android:maxWidth="80dp"
+                android:maxHeight="80dp"
+                android:paddingLeft="30dp"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
 
     </LinearLayout>
 

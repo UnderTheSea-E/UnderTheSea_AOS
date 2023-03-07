@@ -15,7 +15,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/txt"
             android:layout_gravity="bottom"
             android:adjustViewBounds="true"
             android:src="@drawable/gradient"/>
@@ -31,7 +30,6 @@
         <ImageView
             android:layout_width="210dp"
             android:layout_height="210dp"
-            app:layout_constraintTop_toTopOf="@id/txt"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:maxWidth="210dp"
