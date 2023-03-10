@@ -84,7 +84,7 @@ class MainActivity :AppCompatActivity() {
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
                 startActivity(intent)
-//                Log.d("loginSuccess","login")
+                Log.d("loginSuccess","login")
             } else {//로그인 실패 시
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }

@@ -12,7 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class SecondActivity : AppCompatActivity() {
-
+/*
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
 
@@ -39,5 +39,5 @@ class SecondActivity : AppCompatActivity() {
             googleSignInClient.signOut()
             startActivity(Intent(this,MainActivity::class.java))
         }
-    }
+    }*/
 }
