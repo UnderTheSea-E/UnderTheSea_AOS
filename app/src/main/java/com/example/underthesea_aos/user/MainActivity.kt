@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
     var jwtToken = ""
+    var refreshToken = ""
     var char = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +56,12 @@ class MainActivity : AppCompatActivity() {
                     if(response.isSuccessful()){
                         //Log.d("Response1: ", Gson().toJson(response.body()))
                         // jwt token 저장
-                        jwtToken = response.headers().value(0).toString().split(" ")[1]
+                        response.headers().get("Authorization").toString().split(" ")[1]
+                        response.headers().get("Refresh").toString()
+                        jwtToken = response.headers().get("Authorization").toString()
+                        refreshToken = response.headers().get("Refresh").toString()
                         GlobalApplication.prefs.token = jwtToken
+                        GlobalApplication.prefs.refresh = refreshToken
 
                         auth = FirebaseAuth.getInstance()
                         val firebaseJwt = response.body()!!.result!!.firebaseJwt

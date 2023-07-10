@@ -1,4 +1,4 @@
-package com.example.underthesea_aos.record
+package com.example.underthesea_aos.user
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -11,5 +11,11 @@ class Prefs(context: Context) {
         get() = prefs.getString("jwt",null)
         set(value){
             prefs.edit().putString("jwt", value).apply()
+        }
+
+    var refresh:String?
+        get() = prefs.getString("refresh",null)
+        set(value){
+            prefs.edit().putString("refresh", value).apply()
         }
 }

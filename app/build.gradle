@@ -90,8 +90,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
 
     //kakao login
-    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
-    implementation 'com.kakao.sdk:v2-user:2.10.0'
+    //implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.6'
+    implementation "com.kakao.sdk:v2-user:2.11.0" // 카카오 로그인
 
     //slide view
     implementation("androidx.slidingpanelayout:slidingpanelayout:1.2.0")
