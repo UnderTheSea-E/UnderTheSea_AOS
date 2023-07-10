@@ -6,8 +6,12 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.databinding.ActivityPlanMainBinding
 import com.example.underthesea_aos.plan.GetPlanRes
+import com.example.underthesea_aos.record.MyAdapter
+import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
+import kotlinx.android.synthetic.main.activity_plan_main.*
 import kotlinx.android.synthetic.main.activity_recoed2.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +23,10 @@ import retrofit2.Response
 class MainActivity2 : AppCompatActivity() {
     var strDate = ""
     var result = { }
+    lateinit var binding: ActivityPlanMainBinding
+    private val datas = mutableListOf<RecordInfo>()
+    lateinit var  myAdapter: MyAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recoed2)
@@ -42,15 +50,23 @@ class MainActivity2 : AppCompatActivity() {
         }
 
         //백엔드와의 통신 성공 or 실패 (날짜에 해당하는 plan 받아오기)
-        fun GetPlans(planDate: String){
-            val call = RetrofitBuilder().retrofit().getPlansResponse(planDate)
+        fun GetRecords(date: String){
+            val call = RetrofitBuilder().retrofit().getRecordsResponse(date)
             //비동기 방식의 통신
-            call.enqueue(object : Callback<BaseResponse<GetPlanRes>> {
+            call.enqueue(object : Callback<BaseResponse<GetRecordRes>> {
                 //통신 성공
-                override fun onResponse(call: Call<BaseResponse<GetPlanRes>>, response: Response<BaseResponse<GetPlanRes>>) {
+                override fun onResponse(call: Call<BaseResponse<GetRecordRes>>, response: Response<BaseResponse<GetRecordRes>>) {
                     //응답 성공
                     if(response.isSuccessful()){
                         //Log.d("Response2: ", Gson().toJson(response.body()))
+                        if(response.body()?.result?.records?.size != null){
+                            for(i in 0..response.body()!!.result!!.records!!.size-1) {
+                                datas!!.add(response.body()!!.result!!.records!!.get(i))
+                            }
+                            main_recyclerView2.adapter = myAdapter
+                            myAdapter.datas = datas
+                            myAdapter.notifyDataSetChanged()
+                        }
                     }
                     //응답 실패
                     else{
@@ -58,13 +74,33 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
                 //통신 실패
-                override fun onFailure(call: Call<BaseResponse<GetPlanRes>>, t: Throwable) {
+                override fun onFailure(call: Call<BaseResponse<GetRecordRes>>, t: Throwable) {
                     Log.d("Connection Failure", t.localizedMessage)
                 }
             })
         }
 
         //날짜에 해당하는 모든 기록 받기
-        GetPlans(strDate)
+        GetRecords(strDate)
+
+        initRecycler()
+    }
+
+    private fun initRecycler(){
+        myAdapter = MyAdapter(this)
+
+        main_recyclerView2.adapter = myAdapter
+        main_recyclerView2.addItemDecoration(VeritcalItemDecorator(20))
+        //main_recyclerView.addItemDecoration(HorizontalItemDecorator(10))
+
+        datas.apply { }
+
+        myAdapter.datas = datas
+        myAdapter.notifyDataSetChanged()
+
+        back.setOnClickListener{
+            val intent = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

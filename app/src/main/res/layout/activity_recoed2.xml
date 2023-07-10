@@ -67,11 +67,31 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_recyclerView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/activity_record_preview_recyclerview" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right|bottom"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/btn_add"

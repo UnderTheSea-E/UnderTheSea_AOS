@@ -8,6 +8,11 @@ import com.example.underthesea_aos.record.MainActivity2
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import kotlinx.android.synthetic.main.activity_calendar.*
+import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.activity_main2.charac
+import kotlinx.android.synthetic.main.activity_main2.plan
+import kotlinx.android.synthetic.main.activity_main2.record
 import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
@@ -18,10 +23,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar2)
 
-        //back 버튼 클릭 시
-        //val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
-        //back.setOnClickListener{ startActivity(intent1) }
+        //plan calendar로 이동
+        val intent1 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
+        plan.setOnClickListener{
+            startActivity(intent1)
+        }
 
+        //record calendar로 이동
+        val intent2 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
+        record.setOnClickListener{
+            startActivity(intent2)
+        }
+
+        //main(캐릭터 화면)으로 이동
+        val intent3 = Intent(this, com.example.underthesea_aos.main.MainActivity::class.java)
+        charac.setOnClickListener{
+            startActivity(intent3)
+        }
+
+        //back 버튼 클릭 시
+        val intent4 = Intent(this, com.example.underthesea_aos.main.MainActivity::class.java)
+        back.setOnClickListener{ startActivity(intent4) }
         calendar = findViewById(R.id.calendar)
         calendar.setSelectedDate(CalendarDay.today())
 

@@ -15,7 +15,7 @@ class RetrofitBuilder : AppCompatActivity() {
     //var api: API
     fun retrofit(): API {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:3000/") //요청 보내는 api 서버 url
+            .baseUrl("http://34.22.70.141:3000/") //요청 보내는 api 서버 url
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient(AppInterceptor())) // okHttpClient를 Retrofit 빌더에 추가
             .build()

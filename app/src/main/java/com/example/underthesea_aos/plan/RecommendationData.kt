@@ -1,6 +1,7 @@
 package com.example.underthesea_aos.plan
 
 data class RecommendationData(
-    val img1 : Int,
-    val img2 : Int
+    val name : String,
+    val cont : String,
+    val page : String,
 )

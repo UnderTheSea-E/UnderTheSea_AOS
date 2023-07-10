@@ -10,7 +10,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 
 class EventDecorator(context: Context, date: CalendarDay): DayViewDecorator {
     var date: CalendarDay = date
-    val drawable = context.getDrawable(R.drawable.background_border_top_blue)
+//    val drawable = context.getDrawable(R.drawable.background_border_top_blue)
 
     override fun shouldDecorate(day: CalendarDay?): Boolean {
         return day?.equals(date)!!
@@ -24,8 +24,8 @@ class EventDecorator(context: Context, date: CalendarDay): DayViewDecorator {
         view?.addSpan(ForegroundColorSpan(Color.parseColor("#000000")))
 
         //선택된 날짜에 대한 커스텀
-        if (drawable != null) {
-            view?.setSelectionDrawable(drawable)
-        }
+//        if (drawable != null) {
+//            view?.setSelectionDrawable(drawable)
+//        }
     }
 }

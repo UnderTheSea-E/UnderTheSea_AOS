@@ -13,4 +13,7 @@ class KakaoResponse {
     var profileImgUrl: String? = null
         get() { return field }
         set(value) { field = value }
+    var firebaseJwt: String? = null
+        get() { return field }
+        set(value) { field = value }
 }

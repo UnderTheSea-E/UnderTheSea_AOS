@@ -14,6 +14,6 @@ RecyclerView.ItemDecoration(){
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.top = divHeight
-        outRect.bottom  = divHeight
+        //outRect.bottom  = divHeight
     }
 }

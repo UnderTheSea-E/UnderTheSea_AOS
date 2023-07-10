@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 class MapActivity :AppCompatActivity(),OnMapReadyCallback{
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMainBinding
-    lateinit var dbHelper: PlaceHelper
+    //lateinit var dbHelper: PlaceHelper
     lateinit var  database: SQLiteDatabase
 
     override fun onCreate(savedInstanceState: Bundle?){
@@ -35,10 +35,10 @@ class MapActivity :AppCompatActivity(),OnMapReadyCallback{
         setContentView(R.layout.activity_map)
 
         //place db에 접근
-        dbHelper = PlaceHelper(this, "place.db", null, 2);
-        database = dbHelper.writableDatabase
+        //dbHelper = PlaceHelper(this, "place.db", null, 2);
+        //database = dbHelper.writableDatabase
         //place 정보 insert
-        dbHelper.insertPlace()
+        //dbHelper.insertPlace()
 
         val mapFragment: SupportMapFragment = supportFragmentManager.findFragmentById(R.id.mapview) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -48,7 +48,7 @@ class MapActivity :AppCompatActivity(),OnMapReadyCallback{
         mMap = googleMap
 
         val select = "select * from Place"
-        database = dbHelper.readableDatabase
+        //database = dbHelper.readableDatabase
         //데이터를 받아 줍니다. db 데이터를 가져와 처리하기 위한 cursor
         val cursor = database.rawQuery(select,null)
         var marker: LatLng? = null //val marker = LatLng(37.5666805, 126.9784147) //서울시청 좌표

@@ -3,15 +3,14 @@ package com.example.underthesea_aos.user
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.character.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthSettings
 
 class HomeActivity : AppCompatActivity() {
 
@@ -39,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.SignOutBtn).setOnClickListener{
             auth.signOut()
             googleSignInClient.signOut()
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 }

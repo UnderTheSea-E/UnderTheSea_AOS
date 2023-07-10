@@ -46,15 +46,71 @@
             android:layout_weight="2" />
     </LinearLayout>
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendar"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="35dp"
-        app:mcv_tileWidth="match_parent"
-        app:mcv_showOtherDates="all" />
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="600dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="35dp"
+            app:mcv_showOtherDates="all"
+            app:mcv_tileHeight="match_parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/charac"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="50dp"
+                android:background="@color/white"
+                android:src="@drawable/home_icon"
+                android:scaleType="fitCenter"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/plan"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="50dp"
+                android:background="@color/white"
+                android:src="@drawable/calendar_icon"
+                android:scaleType="fitCenter"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/record"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="50dp"
+                android:background="@color/white"
+                android:src="@drawable/record_icon"
+                android:scaleType="fitCenter"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/user"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="50dp"
+                android:background="@color/white"
+                android:src="@drawable/profile_icon"
+                android:scaleType="fitCenter"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

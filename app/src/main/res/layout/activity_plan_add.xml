@@ -30,8 +30,8 @@
                 android:layout_marginStart="75dp"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/date"
             android:layout_marginTop="7dp"
-            android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="날짜 들어갈 위치"
@@ -42,14 +42,69 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Freinds"
+            android:text="Friends"
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@android:color/black"/>
-        <SearchView
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="with "
+            android:textSize="15dp"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/friend_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="whom"
+            android:textSize="15dp"
+            android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add friends"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/addFriends"
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
+                />
+            <Button
+                android:id="@+id/friend_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#00000000"
+                android:text="✅"
+                android:textSize="30dp"/>
+        </LinearLayout>
+
+        <!--<SearchView
             android:id="@+id/search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/>-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,27 +119,27 @@
                 android:id="@+id/image01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cake_card"
-                android:layout_margin="5dp"/>
+                android:background="@drawable/image01"
+                android:layout_margin="3dp"/>
             <ImageView
                 android:id="@+id/image02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/salad_card"
-                android:layout_margin="5dp"/>
+                android:src="@drawable/image02"
+                android:layout_margin="3dp"/>
             <ImageView
                 android:id="@+id/image03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/pie_card"
-                android:layout_margin="5dp"/>
+                android:src="@drawable/image03"
+                android:layout_margin="3dp"/>
 
             <ImageView
                 android:id="@+id/image04"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/pie_card"
-                android:layout_margin="5dp"/><!--바꿀 필요있음-->
+                android:src="@drawable/image04"
+                android:layout_margin="3dp"/><!--바꿀 필요있음-->
         </LinearLayout>
 
         <LinearLayout
@@ -128,10 +183,12 @@
             android:textSize="15dp"
             android:textColor="@android:color/black"/>
         <EditText
+            android:id="@+id/contents_memo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="/15"/>
+            android:maxLength="30"
+            android:hint="/30"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

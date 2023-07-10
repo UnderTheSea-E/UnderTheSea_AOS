@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.underthesea_aos"
-        minSdk 25
+        minSdk 28
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -78,6 +78,13 @@ dependencies {
     //firebase
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx' // Realtime Database library
+    implementation 'com.google.firebase:firebase-auth-ktx' // Authentication library
+    implementation 'com.google.firebase:firebase-core:19.0.0'
+    implementation "com.firebaseui:firebase-ui-auth:7.2.0" // gradle_firebase_ui_auth
+    implementation 'com.google.android.gms:play-services-auth:19.2.0' // Google Play ser
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.android.volley:volley:1.2.0'
 
     //GoogleSignInClient 사용하기 위한 구글로그인 의존성
     implementation 'com.google.android.gms:play-services-auth:20.2.0'

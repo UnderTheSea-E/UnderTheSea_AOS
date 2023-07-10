@@ -13,12 +13,12 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SecondActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+/*    private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        //setContentView(R.layout.activity_home)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -39,5 +39,5 @@ class SecondActivity : AppCompatActivity() {
             googleSignInClient.signOut()
             startActivity(Intent(this,MainActivity::class.java))
         }
-    }
+    }*/
 }

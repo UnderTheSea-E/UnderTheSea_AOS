@@ -8,9 +8,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.character.MainActivity
 import com.kakao.sdk.user.UserApiClient
-//import com.kakao.usermgmt.StringSet.id
-//import com.kakao.usermgmt.StringSet.nickname
 
 class SecondActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

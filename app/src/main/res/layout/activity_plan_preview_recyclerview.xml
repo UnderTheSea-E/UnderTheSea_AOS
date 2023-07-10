@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/add_editView"
+    <TextView
+        android:id="@+id/plan_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle3"
         tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="46dp"
-        android:text="contents"
+        tools:layout_editor_absoluteY=""
+        android:text=""
         android:gravity="center"
         tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

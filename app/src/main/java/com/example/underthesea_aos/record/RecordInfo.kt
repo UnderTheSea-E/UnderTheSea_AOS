@@ -1,6 +1,11 @@
 package com.example.underthesea_aos.record
 
+import java.util.*
+
 class RecordInfo {
+    var record_id: Long? = null
+        get() { return field }
+        set(value) { field = value }
     var date: String? = null
         get() { return field }
         set(value) { field = value }
@@ -13,7 +18,13 @@ class RecordInfo {
     var satisfaction: Int? = null
         get() { return field }
         set(value) { field = value }
-    var plan_id: Int? = null
+    var status: String? = null
+        get() { return field }
+        set(value) { field = value }
+    var created_at: Date? = null
+        get() { return field }
+        set(value) { field = value }
+    var updated_at: Date? = null
         get() { return field }
         set(value) { field = value }
 }
