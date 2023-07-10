@@ -36,6 +36,7 @@ class RetrofitBuilder : AppCompatActivity() {
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
             val newRequest = chain.request().newBuilder()
                 .addHeader("Authorization", GlobalApplication.prefs.token ?: "")
+                .addHeader("Refresh", GlobalApplication.prefs.refresh?:"")
                 .build()
             chain.proceed(newRequest)
         }
